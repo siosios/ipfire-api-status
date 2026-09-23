@@ -229,17 +229,6 @@ if (exists $data->{error}) {
     render_error("API Error: " . esc($data->{error} // 'unknown'));
 }
 
-my $external_ip = read_file("${General::swroot}/red/local-ipaddress");
-my $external_hostname = '';
-
-if ($external_ip ne '') {
-    $external_hostname =
-        (gethostbyaddr(pack("C4", split(/\./, $external_ip)), 2))[0]
-        || '';
-}
-
-my $profile = $pppsettings{'PROFILENAME'} // '';
-
 # ---- 4c. Extract Data Sections (Safe defaults) ----
 my $sys   = (ref $data->{system}     eq 'HASH') ? $data->{system}     : {};
 my $net   = (ref $data->{network}    eq 'HASH') ? $data->{network}    : {};
